@@ -4,7 +4,7 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { Film } from '../films/entities';
 import { Cart } from './entities';
 import { Repository } from 'typeorm';
-import { AddFilmDto } from './dto';
+import { AddFilmDto, DeleteFilmDto } from './dto';
 
 @Injectable()
 export class CartService {
@@ -30,6 +30,18 @@ export class CartService {
     const cart = await this.cartsRepository.findOne();
 
     cart.films.push(film);
+
+    await this.cartsRepository.save(cart);
+
+    return cart.films;
+  }
+
+  async deleteFilmToCart(dto: DeleteFilmDto): Promise<Film[]> {
+    const cart = await this.cartsRepository.findOne();
+
+    const filmIndex = cart.films.findIndex((item) => item.id === dto.filmId);
+
+    delete cart.films[filmIndex];
 
     await this.cartsRepository.save(cart);
 

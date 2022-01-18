@@ -1,8 +1,8 @@
-import { Body, Controller, Get, Post, UseGuards } from '@nestjs/common';
+import { Body, Controller, Delete, Get, Post, UseGuards } from '@nestjs/common';
 
 import { Film } from '../films/entities';
 import { CartService } from './cart.service';
-import { AddFilmDto } from './dto';
+import { AddFilmDto, DeleteFilmDto } from './dto';
 import { CheckFilmExistsGuard } from './guards';
 
 @Controller('/api/cart')
@@ -18,5 +18,10 @@ export class CartController {
   @UseGuards(CheckFilmExistsGuard)
   addFilmToCart(@Body() dto: AddFilmDto): Promise<Film[]> {
     return this.cartService.addFilmToCart(dto);
+  }
+
+  @Delete('/remove')
+  deleteFilmFromCart(@Body() dto: DeleteFilmDto): Promise<Film[]> {
+    return this.cartService.deleteFilmToCart(dto);
   }
 }

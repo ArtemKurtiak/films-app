@@ -1,4 +1,11 @@
-import { Column, Entity, JoinTable, ManyToMany, PrimaryColumn } from 'typeorm';
+import {
+  Column,
+  Entity,
+  Index,
+  JoinTable,
+  ManyToMany,
+  PrimaryColumn,
+} from 'typeorm';
 import { Cart } from '../../cart/entities';
 
 @Entity()
@@ -19,6 +26,7 @@ export class Film {
   @Column({
     type: 'varchar',
   })
+  @Index()
   title: string;
 
   @Column({

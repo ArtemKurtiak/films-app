@@ -15,8 +15,11 @@ export class FilmsService {
     private configService: ConfigService,
   ) {}
 
-  async getFilms(): Promise<Film[]> {
-    return this.filmsRepository.find();
+  async getFilms(searchTerm = ''): Promise<Film[]> {
+    return this.filmsRepository
+      .createQueryBuilder('film')
+      .where('film.title LIKE :searchTerm', { searchTerm: `%${searchTerm}%` })
+      .getMany();
   }
 
   async getFilmDetails(filmId: number): Promise<any> {

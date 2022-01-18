@@ -1,4 +1,4 @@
-import { Controller, Get, Param, ParseIntPipe } from '@nestjs/common';
+import { Controller, Get, Param, ParseIntPipe, Query } from '@nestjs/common';
 
 import { FilmsService } from './films.service';
 import { Film } from './entities';
@@ -8,8 +8,8 @@ export class FilmsController {
   constructor(private filmsService: FilmsService) {}
 
   @Get()
-  getFilms(): Promise<Film[]> {
-    return this.filmsService.getFilms();
+  getFilms(@Query('searchTerm') searchTerm: string): Promise<Film[]> {
+    return this.filmsService.getFilms(searchTerm);
   }
 
   @Get(':film_id')

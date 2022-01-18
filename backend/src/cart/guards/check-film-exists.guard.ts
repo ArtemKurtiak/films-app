@@ -1,5 +1,4 @@
 import { CanActivate, ExecutionContext, Injectable } from '@nestjs/common';
-import { Observable } from 'rxjs';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Cart } from '../entities';
 import { Repository } from 'typeorm';
