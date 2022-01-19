@@ -21,7 +21,7 @@ export class CartController {
   }
 
   @Delete('/remove')
-  deleteFilmFromCart(@Body() dto: DeleteFilmDto): Promise<Film[]> {
+  deleteFilmFromCart(@Body() dto: DeleteFilmDto): Promise<boolean> {
     return this.cartService.deleteFilmToCart(dto);
   }
 }

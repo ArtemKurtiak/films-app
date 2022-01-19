@@ -1,16 +1,16 @@
 import React, {useEffect, useState} from "react";
 import {useDispatch} from "react-redux";
-import {NavLink} from "react-router-dom";
 
 import {getFilmsFromCartActionCreator} from "../../store/action-creators/cart.action-creator";
 import {useSelectorWithTypes} from "../../hooks";
 import FilmItem from "../../components/FilmItem/FilmItem";
 import FilmItemModal from "../../components/FilmItemModal/FilmItemModal";
+import './CartPage.scss';
 
 const CartPage: React.FC = () => {
+    const dispatch = useDispatch();
     const [filmId, setFilmId] = useState<number>(0);
     const [modalOpen, setModalOpen] = useState<boolean>(false);
-    const dispatch = useDispatch();
 
     const {films} = useSelectorWithTypes(state => state.cart);
 
@@ -21,10 +21,7 @@ const CartPage: React.FC = () => {
     }, [])
 
     return <div className={'page'}>
-        <div className={'page-links'}>
-            <NavLink to={'/'}>Home</NavLink>
-        </div>
-        <div className={'page-links'}>
+        <div>
             <div className={'films-list'}>
                 { films.length ? films.map((item) => {
                     return <FilmItem
@@ -36,7 +33,7 @@ const CartPage: React.FC = () => {
                             setModalOpen(true);
                         }}
                     />
-                }) : 'No films in cart now'}
+                }) : <h1 className={'no-films'} >No films in cart now</h1>}
             </div>
             <FilmItemModal filmId={filmId} isOpen={modalOpen} setOpen={setModalOpen}/>
         </div>

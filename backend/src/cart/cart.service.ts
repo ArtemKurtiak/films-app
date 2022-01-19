@@ -36,7 +36,7 @@ export class CartService {
     return cart.films;
   }
 
-  async deleteFilmToCart(dto: DeleteFilmDto): Promise<Film[]> {
+  async deleteFilmToCart(dto: DeleteFilmDto): Promise<boolean> {
     const cart = await this.cartsRepository.findOne();
 
     const filmIndex = cart.films.findIndex((item) => item.id === dto.filmId);
@@ -45,6 +45,6 @@ export class CartService {
 
     await this.cartsRepository.save(cart);
 
-    return cart.films;
+    return true;
   }
 }

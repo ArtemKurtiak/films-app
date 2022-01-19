@@ -6,16 +6,15 @@ import {useSelectorWithTypes} from "../../hooks";
 import FilmItem from "../../components/FilmItem/FilmItem";
 import {getFilmsActionCreator} from "../../store/action-creators";
 import FilmItemModal from "../../components/FilmItemModal/FilmItemModal";
-import {NavLink} from "react-router-dom";
 
 const FilmsPage: React.FC = () => {
+    const dispatch = useDispatch();
     const [searchTerm, setSearchTerm] = useState<string>('');
     const [filmId, setFilmId] = useState<number>(0);
     const [modalOpen, setModalOpen] = useState<boolean>(false);
-    const dispatch = useDispatch();
 
     useEffect(() => {
-        dispatch(getFilmsActionCreator(searchTerm));
+        dispatch(getFilmsActionCreator(searchTerm.toLowerCase()));
 
         //eslint-disable-next-line
     }, [searchTerm])
@@ -23,9 +22,6 @@ const FilmsPage: React.FC = () => {
     const {films} = useSelectorWithTypes(state => state.films);
 
     return <div className={'page'}>
-        <div className={'page-links'}>
-            <NavLink to={'/cart'}>Cart</NavLink>
-        </div>
         <div className={'search-part'}>
             <input
                 onChange={(e) => {

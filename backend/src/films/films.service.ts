@@ -18,7 +18,7 @@ export class FilmsService {
   async getFilms(searchTerm = ''): Promise<Film[]> {
     return this.filmsRepository
       .createQueryBuilder('film')
-      .where('film.title LIKE :searchTerm', { searchTerm: `%${searchTerm}%` })
+      .where('film.title ILIKE :searchTerm', { searchTerm: `%${searchTerm}%` })
       .getMany();
   }
 

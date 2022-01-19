@@ -15,13 +15,13 @@ type Props = {
 }
 
 const FilmItem: React.FC<BasicFilmType & Props> = ({
-                                                       title,
-                                                       poster_path,
-                                                       popularity,
-                                                       handleClick,
-                                                       id,
-                                                       deleteAccess = false
-                                                   }) => {
+    title,
+    poster_path,
+    popularity,
+    handleClick,
+    id,
+    deleteAccess = false
+    }) => {
     const dispatch = useDispatch();
 
     const deleteHandler = async (e: any) => {
